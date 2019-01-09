@@ -1,0 +1,52 @@
+
+;                AAA               kkkkkkkk                                                                                
+;               A:::A              k::::::k                                                                                
+;              A:::::A             k::::::k                                                                                
+;             A:::::::A            k::::::k                                                                                
+;            A:::::::::A            k:::::k    kkkkkkk   mmmmmmm    mmmmmmm       eeeeeeeeeeee    yyyyyyy           yyyyyyy
+;           A:::::A:::::A           k:::::k   k:::::k  mm:::::::m  m:::::::mm   ee::::::::::::ee   y:::::y         y:::::y 
+;          A:::::A A:::::A          k:::::k  k:::::k  m::::::::::mm::::::::::m e::::::eeeee:::::ee  y:::::y       y:::::y  
+;         A:::::A   A:::::A         k:::::k k:::::k   m::::::::::::::::::::::me::::::e     e:::::e   y:::::y     y:::::y   
+;        A:::::A     A:::::A        k::::::k:::::k    m:::::mmm::::::mmm:::::me:::::::eeeee::::::e    y:::::y   y:::::y    
+;       A:::::AAAAAAAAA:::::A       k:::::::::::k     m::::m   m::::m   m::::me:::::::::::::::::e      y:::::y y:::::y     
+;      A:::::::::::::::::::::A      k:::::::::::k     m::::m   m::::m   m::::me::::::eeeeeeeeeee        y:::::y:::::y      
+;     A:::::AAAAAAAAAAAAA:::::A     k::::::k:::::k    m::::m   m::::m   m::::me:::::::e                  y:::::::::y       
+;    A:::::A             A:::::A   k::::::k k:::::k   m::::m   m::::m   m::::me::::::::e                  y:::::::y        
+;   A:::::A               A:::::A  k::::::k  k:::::k  m::::m   m::::m   m::::m e::::::::eeeeeeee           y:::::y         
+;  A:::::A                 A:::::A k::::::k   k:::::k m::::m   m::::m   m::::m  ee:::::::::::::e          y:::::y          
+; AAAAAAA                   AAAAAAAkkkkkkkk    kkkkkkkmmmmmm   mmmmmm   mmmmmm    eeeeeeeeeeeeee         y:::::y           
+;                                                                                                       y:::::y            
+;                                                                                                      y:::::y             
+;                                                                                                     y:::::y              
+;                                                                                                    y:::::y               
+;                                                                                                   yyyyyyy    
+
+[ssh]
+
+; Listen address
+; A TCP full address
+listen = ':22'
+
+; Path to the host key
+; Generate it with `ssh-keygen -t rsa -C "your_email@example.com"`
+hostkey = 'id_rsa'
+
+; You don't need to change this normally,
+; Relative path to ui subprogram
+uiexec = './ui/ui'
+
+[client-link]
+
+; Access point for the Akmey Laravel app, it must be the root URL 
+; without trailing slash (/). It can be remote or local.
+url = 'http://akmey'
+
+; OAuth Client ID, you can create an app by going to http://<yourakmeyserver>/dashboard/apps
+; `php artisan passport:client --password` also works
+clientid = ''
+
+; OAuth Client Secret
+clientsecret = ''
+
+; Full URL to register an Akmey account
+registerurl = 'http://akmey'
