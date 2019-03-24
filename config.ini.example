@@ -33,7 +33,7 @@ hostkey = 'id_rsa'
 
 ; You don't need to change this normally,
 ; Relative path to ui subprogram
-uiexec = './ui/ui'
+uiexec = './ui/ui.js'
 
 [client-link]
 
@@ -49,4 +49,4 @@ clientid = ''
 clientsecret = ''
 
 ; Full URL to register an Akmey account
-registerurl = 'http://akmey'
+registerurl = 'http://akmey/register'

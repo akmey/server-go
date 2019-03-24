@@ -69,7 +69,7 @@ func main() {
 		}
 		switch choice {
 		case "Add my key to Akmey":
-			fmt.Println("Login to your Akmey account to add your key, if you don't have an Akmey account, please register here : " + cfg.Section("client-link").Key("registerurl").String())
+			fmt.Println("Login to your Akmey account to add your key, if you don't have an Akmey account, please register here : " + cfg.Section("clientlink").Key("registerurl").String())
 			email, err := ui.Ask("E-Mail", &input.Options{
 				HideOrder: true,
 				Required:  true,
@@ -90,12 +90,12 @@ func main() {
 			}
 			ctx := context.Background()
 			conf := &oauth2.Config{
-				ClientID:     cfg.Section("client-link").Key("clientid").String(),
-				ClientSecret: cfg.Section("client-link").Key("clientsecret").String(),
+				ClientID:     cfg.Section("clientlink").Key("clientid").String(),
+				ClientSecret: cfg.Section("clientlink").Key("clientsecret").String(),
 				Scopes:       []string{"keys"},
 				Endpoint: oauth2.Endpoint{
 					AuthURL:  "http://no.where",
-					TokenURL: cfg.Section("client-link").Key("url").String() + "/oauth/token",
+					TokenURL: cfg.Section("clientlink").Key("url").String() + "/oauth/token",
 				},
 			}
 			token, err := conf.PasswordCredentialsToken(ctx, email, password)
@@ -109,7 +109,7 @@ func main() {
 				SetHeader("Accept", "application/json").
 				SetFormData(map[string]string{
 					"key": os.Args[1],
-				}).Post(cfg.Section("client-link").Key("url").String() + "/api/keys/add")
+				}).Post(cfg.Section("clientlink").Key("url").String() + "/api/keys/add")
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -120,14 +120,14 @@ func main() {
 			}
 			parsed := f.(map[string]interface{})
 			if parsed["success"] != true {
-				fmt.Println("The server refused our key")
-				fmt.Println(parsed["message"])
+				fmt.Println("The server refused our key, the key is already used or you are not allowed to add keys.")
 				continue
 			} else {
 				fmt.Println("Great ! Your key is registered on Akmey.")
+				continue
 			}
 		case "Remove my key":
-			fmt.Println("Login to your Akmey account to remove your key, if you don't have an Akmey account, please register here : " + cfg.Section("client-link").Key("registerurl").String())
+			fmt.Println("Login to your Akmey account to remove your key, if you don't have an Akmey account, please register here : " + cfg.Section("clientlink").Key("registerurl").String())
 			email, err := ui.Ask("E-Mail", &input.Options{
 				HideOrder: true,
 				Required:  true,
@@ -148,12 +148,12 @@ func main() {
 			}
 			ctx := context.Background()
 			conf := &oauth2.Config{
-				ClientID:     cfg.Section("client-link").Key("clientid").String(),
-				ClientSecret: cfg.Section("client-link").Key("clientsecret").String(),
+				ClientID:     cfg.Section("clientlink").Key("clientid").String(),
+				ClientSecret: cfg.Section("clientlink").Key("clientsecret").String(),
 				Scopes:       []string{"keys"},
 				Endpoint: oauth2.Endpoint{
 					AuthURL:  "http://no.where",
-					TokenURL: cfg.Section("client-link").Key("url").String() + "/oauth/token",
+					TokenURL: cfg.Section("clientlink").Key("url").String() + "/oauth/token",
 				},
 			}
 			token, err := conf.PasswordCredentialsToken(ctx, email, password)
@@ -167,7 +167,7 @@ func main() {
 				SetHeader("Accept", "application/json").
 				SetFormData(map[string]string{
 					"key": os.Args[1],
-				}).Post(cfg.Section("client-link").Key("url").String() + "/api/keys/fetch")
+				}).Post(cfg.Section("clientlink").Key("url").String() + "/api/keys/fetch")
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -182,7 +182,7 @@ func main() {
 					SetHeader("Authorization", "Bearer "+token.AccessToken).
 					SetHeader("Content-Type", "application/x-www-form-urlencoded").
 					SetHeader("Accept", "application/json").
-					Delete(cfg.Section("client-link").Key("url").String() + "/api/keys/" + strconv.FormatFloat(parsed["id"].(float64), 'f', 0, 64))
+					Delete(cfg.Section("clientlink").Key("url").String() + "/api/keys/" + strconv.FormatFloat(parsed["id"].(float64), 'f', 0, 64))
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -241,7 +241,7 @@ func main() {
 				SetHeader("Accept", "application/json").
 				SetFormData(map[string]string{
 					"key": os.Args[1],
-				}).Post(cfg.Section("client-link").Key("url").String() + "/api/keys/fetch")
+				}).Post(cfg.Section("clientlink").Key("url").String() + "/api/keys/fetch")
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -267,7 +267,7 @@ func main() {
 					SetFormData(map[string]string{
 						"comment": comment,
 					}).
-					Put(cfg.Section("client-link").Key("url").String() + "/api/keys/" + strconv.FormatFloat(parsed["id"].(float64), 'f', 0, 64))
+					Put(cfg.Section("clientlink").Key("url").String() + "/api/keys/" + strconv.FormatFloat(parsed["id"].(float64), 'f', 0, 64))
 				if err != nil {
 					log.Fatal(err)
 				}
